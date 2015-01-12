@@ -163,13 +163,23 @@ public class ShowDetailActivity extends BaseActivity {
                         public void onClick(DialogInterface dialog, int position) {
                             final int selectedSeason = availableSeasons.get(position);
                             final List<String> availableChapters = new ArrayList<>();
+                            final List<Show.Episode> chapters = new ArrayList<>();
                             List<String> availableChaptersStringList = new ArrayList<>();
+
                             for (String key : mItem.episodes.keySet()) {
                                 if (mItem.episodes.get(key).season == selectedSeason) {
                                     availableChapters.add(key);
                                     availableChaptersStringList.add(((Integer) mItem.episodes.get(key).episode).toString());
+                                    chapters.add(mItem.episodes.get(key));
                                 }
                             }
+
+                            Collections.sort(chapters, new Comparator<Show.Episode>() {
+                                @Override
+                                public int compare(Show.Episode lhs, Show.Episode rhs) {
+                                    return lhs.episode > rhs.episode? 1 : -1;
+                                }
+                            });
 
                             // sorting hack
                             Collections.sort(availableChapters, new Comparator<String>() {
@@ -181,24 +191,11 @@ public class ShowDetailActivity extends BaseActivity {
                                     return lEpisode.episode > rEpisode.episode ? 1 : -1;
                                 }
                             });
-                            Collections.sort(availableChaptersStringList, new Comparator<String>() {
-                                @Override
-                                public int compare(String lhs, String rhs) {
-                                    int a = Integer.parseInt(lhs);
-                                    int b = Integer.parseInt(rhs);
-                                    if (a > b) {
-                                        return 1;
-                                    } else if (a < b) {
-                                        return -1;
-                                    } else {
-                                        return 0;
-                                    }
-                                }
-                            });
 
-                            for (final ListIterator<String> iter = availableChaptersStringList.listIterator(); iter.hasNext(); ) {
-                                final String element = iter.next();
-                                iter.set(getString(R.string.episode) + " " + element);
+                            availableChaptersStringList = new ArrayList<>();
+                            for (final ListIterator<Show.Episode> iter = chapters.listIterator(); iter.hasNext();) {
+                                final Show.Episode episode =  iter.next();
+                                availableChaptersStringList.add(episode.episode + " - " + episode.title);
                             }
 
                             dialog.dismiss();
@@ -207,7 +204,7 @@ public class ShowDetailActivity extends BaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int position) {
                                     String key = availableChapters.get(position);
-                                    Show.Episode episode = mItem.episodes.get(key);
+                                    Show.Episode episode = chapters.get(position);
                                     Media.Torrent torrent = episode.torrents.get(episode.torrents.keySet().toArray(new String[1])[0]);
 
                                     if (PrefUtils.get(ShowDetailActivity.this, Prefs.WIFI_ONLY,
