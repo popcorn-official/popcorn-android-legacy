@@ -225,6 +225,7 @@ public class EZTVProvider extends MediaProvider {
 					episodeObject.season = ((Double) episode.get("season")).intValue();
 					episodeObject.episode = ((Double) episode.get("episode")).intValue();
 					episodeObject.videoId = show.videoId + episodeObject.season + episodeObject.episode;
+                    episodeObject.title = episode.get("title").toString();
 
 					show.episodes.put(episodeObject.season + "-" + episodeObject.episode, episodeObject);
 				}
