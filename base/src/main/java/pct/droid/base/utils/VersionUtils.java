@@ -61,10 +61,6 @@ public class VersionUtils {
             deviceAbi = Build.SUPPORTED_ABIS[0];
         }
 
-        // TODO: if arm64 works remove this
-        if(deviceAbi.equalsIgnoreCase("arm64-v8a"))
-            deviceAbi = "armeabi-v7a";
-
         return deviceAbi.equalsIgnoreCase(buidAbi);
     }
 
