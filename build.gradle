@@ -18,7 +18,7 @@ buildscript {
 }
 
 ext {
-    appCompatVersion = "23.1.1"
+    appCompatVersion = "23.0.1"
     buildToolsVersion = "23.0.1"
     crashlyticsVersion = "2.5.4"
     targetSdk = 23
