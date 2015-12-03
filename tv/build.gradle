@@ -28,9 +28,9 @@ android {
     defaultConfig {
         applicationId "pct.droid.tv"
         minSdkVersion 21
-        targetSdkVersion 22 //rootProject.ext.targetSdk
+        targetSdkVersion 22 //dont use rootProject.ext.targetSdk since for older versions something doesnt work if this is API level 23
         versionCode buildNumber
-        versionName "0.1.0"
+        versionName "0.1.1"
         multiDexEnabled true
         manifestPlaceholders = [crashlyticsApiKey: System.getenv("CRASHLYTICS_API_KEY") ?: "b246d46ecb3f6b64f3ce24c0c2055cc4fd101c93"]
     }
