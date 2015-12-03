@@ -26,7 +26,7 @@ android {
     def buildNumber = (System.getenv("BUILD_NUMBER") == null ? 0 : System.getenv("BUILD_NUMBER")) as int
 
     defaultConfig {
-        applicationId "pct.droid.tv"
+        applicationId "pct.droid.ce.tv"
         minSdkVersion 21
         targetSdkVersion 22 //dont use rootProject.ext.targetSdk since for older versions something doesnt work if this is API level 23
         versionCode buildNumber
