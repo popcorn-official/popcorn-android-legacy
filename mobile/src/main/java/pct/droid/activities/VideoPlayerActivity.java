@@ -31,7 +31,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.facebook.stetho.common.Util;
 
 import org.videolan.libvlc.util.AndroidUtil;
 

@@ -9,7 +9,6 @@ buildscript {
     }
 }
 
-
 apply plugin: 'com.android.application'
 apply plugin: 'hugo'
 apply plugin: 'io.fabric'
@@ -97,9 +96,8 @@ dependencies {
     compile "com.android.support:palette-v7:${rootProject.ext.appCompatVersion}"
     compile "com.android.support:leanback-v17:${rootProject.ext.appCompatVersion}"
     compile "com.squareup.picasso:picasso:2.5.2"
-    compile "com.google.code.gson:gson:2.3.1"
     compile "com.jakewharton:butterknife:7.0.1"
-    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'de.greenrobot:eventbus:2.4.1'
 
     compile project(':base')
 }
