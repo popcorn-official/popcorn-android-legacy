@@ -52,12 +52,7 @@ public class YTSProvider extends MediaProvider {
     private static final YTSProvider sMediaProvider = new YTSProvider();
     private static Integer CURRENT_API = 0;
     private static final String[][] API_URLS = {
-            {"https://xor.image.yt/api/v2/", "ppt"},
-            {"http://cloudflare.com/api/v2/", "ppt"},
-            {"http://reddit.com/api/v2/", "ppt"},
-            {"https://yts.to/api/v2/", "json"},
-            {"https://yts.io/api/v2/", "json"},
-            {"https://yts.sh/api/v2/", "json"}
+            {"https://yts.ag/api/v2/", "json"}
     };
     public static String CURRENT_URL = API_URLS[CURRENT_API][0];
 
@@ -156,7 +151,7 @@ public class YTSProvider extends MediaProvider {
 
         Request.Builder requestBuilder = new Request.Builder();
         String query = buildQuery(params);
-        requestBuilder.url(CURRENT_URL + "list_movies_pct." + API_URLS[CURRENT_API][1] + "?" + query);
+        requestBuilder.url(CURRENT_URL + "list_movies." + API_URLS[CURRENT_API][1] + "?" + query);
         requestBuilder.tag(MEDIA_CALL);
 
         return fetchList(currentList, requestBuilder, filters, callback);
@@ -171,8 +166,6 @@ public class YTSProvider extends MediaProvider {
      * @return Call
      */
     private Call fetchList(final ArrayList<Media> currentList, final Request.Builder requestBuilder, final Filters filters, final Callback callback) {
-        if(!API_URLS[CURRENT_API][0].contains("yts"))
-            requestBuilder.addHeader("Host", "xor.image.yt");
         return enqueue(requestBuilder.build(), new com.squareup.okhttp.Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -286,7 +279,7 @@ public class YTSProvider extends MediaProvider {
                     movie.year = Integer.toString(year.intValue());
                     movie.rating = item.get("rating").toString();
                     movie.genre = ((ArrayList<String>) item.get("genres")).get(0);
-                    movie.image = (String) item.get("large_cover_image");
+                    movie.image = ((String) item.get("medium_cover_image")).replace("medium", "large");
                     movie.headerImage = (String) item.get("background_image_original");
                     movie.trailer = "https://youtube.com/watch?v=" + item.get("yt_trailer_code");
                     Double runtime = (Double) item.get("runtime");
