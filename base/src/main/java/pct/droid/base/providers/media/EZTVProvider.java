@@ -46,12 +46,10 @@ public class EZTVProvider extends MediaProvider {
 
     private static Integer CURRENT_API = 0;
     private static final String[] API_URLS = {
-            "https://eztvapi.re/",
-            "https://api.popcorntime.io/",
-            "https://api.popcorntime.cc/",
-            "https://api.popcorntime.re/",
-            "https://api.get-popcorn.com/",
-            "http://tv.ytspt.re/",
+            "https://www.popcorntime.ws/api/eztv/",
+            "https://popcornwvnbg7jev.onion.to/",
+            "https://odgoglfi7uddahby.onion.to/",
+            "https://mi2i2dospijuauxa.onion.to/",
     };
     private static final SubsProvider sSubsProvider = new OpenSubsProvider();
     private static final MetaProvider sMetaProvider = new TraktProvider();
