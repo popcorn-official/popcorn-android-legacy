@@ -603,26 +603,6 @@ public interface PreferencesHandler {
                     })
                     .build());
 
-            prefItems.add(PrefItem.newBuilder(context)
-                    .setIconResource(R.drawable.ic_nav_vpn)
-                    .setTitleResource(R.string.show_vpn)
-                    .setPreferenceKey(Prefs.SHOW_VPN)
-                    .setDefaultValue(true)
-                    .setOnClickListener(new PrefItem.OnClickListener() {
-                        @Override
-                        public void onClick(final PrefItem item) {
-                            item.saveValue(!(boolean) item.getValue());
-                        }
-                    })
-                    .setSubtitleGenerator(new PrefItem.SubtitleGenerator() {
-                        @Override
-                        public String get(PrefItem item) {
-                            boolean enabled = (boolean) item.getValue();
-                            return enabled ? context.getString(R.string.enabled) : context.getString(R.string.disabled);
-                        }
-                    })
-                    .build());
-
             prefItems.add(PrefItem.newBuilder(context).setTitleResource(R.string.updates).build());
 
             prefItems.add(PrefItem.newBuilder(context)
