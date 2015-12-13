@@ -17,7 +17,7 @@ apply plugin: 'io.fabric'
 
 advancedVersioning {
     codeOptions {
-        versionCodeType org.moallemi.gradle.internal.VersionCodeType.JALALI_DATE
+        versionCodeType org.moallemi.gradle.internal.VersionCodeType.AUTO_INCREMENT_ONE_STEP
     }
     nameOptions {
         versionMajor 0
@@ -85,11 +85,11 @@ android {
             enable true
             universalApk false
             reset()
-            include 'armeabi-v7a', 'x86', 'arm64-v8a'
+            include 'armeabi-v7a', 'x86', 'arm64-v8a', 'x86_64'
         }
     }
 
-    project.ext.versionCodes = ["armeabi": 1, "armeabi-v7a": 2, "arm64-v8a": 3, "x86": 4]
+    project.ext.versionCodes = ["armeabi": 1, "armeabi-v7a": 2, "arm64-v8a": 3, "x86": 4, "x86_64": 4]
 }
 
 //to check for dependency updates,

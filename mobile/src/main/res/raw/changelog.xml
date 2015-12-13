@@ -18,9 +18,10 @@
 
 <changelog bulletedList="true">
 
-    <changelogversion>
+    <changelogversion versionName="0.2.7">
         <changelogtext>Fixed casting to Samsung TV's</changelogtext>
         <changelogtext>Fixed NumberPicker in settings regarding subtitle size</changelogtext>
+        <changelogtext>Fixed YTS API</changelogtext>
     </changelogversion>
 
     <changelogversion versionName="0.2.5">
