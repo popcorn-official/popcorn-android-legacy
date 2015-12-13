@@ -78,7 +78,6 @@ public class PTVTrailerPlayerActivity extends PTVBaseActivity implements PTVVide
 
     private void createStreamInfo() {
         mMedia = getIntent().getParcelableExtra(DATA);
-        mMedia.title += " (" + getString(R.string.trailer) + ")";
         mStreamInfo = new StreamInfo(mMedia, null, null, null, null, null);
     }
 

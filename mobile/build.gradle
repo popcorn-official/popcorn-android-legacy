@@ -9,23 +9,34 @@ buildscript {
     }
 }
 
+apply plugin: 'org.moallemi.advanced-build-version'
 apply plugin: 'com.android.application'
 apply plugin: 'hugo'//for method logging (only in debug builds)
 apply plugin: 'com.github.ben-manes.versions'// to check for dependency updates
 apply plugin: 'io.fabric'
 
+advancedVersioning {
+    codeOptions {
+        versionCodeType org.moallemi.gradle.internal.VersionCodeType.DATE
+    }
+    nameOptions {
+        versionMajor 0
+        versionMinor 2
+        versionPatch 7
+    }
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdk
     buildToolsVersion rootProject.ext.buildToolsVersion
-    def buildNumber = (System.getenv("BUILD_NUMBER") == null ? 0 : System.getenv("BUILD_NUMBER")) as int
 
 
     defaultConfig {
-        applicationId "pct.droid.ce"
+        applicationId "pct.droid"
         minSdkVersion rootProject.ext.minSdk
         targetSdkVersion rootProject.ext.targetSdk
-        versionCode buildNumber
-        versionName "0.2.6"
+        versionCode advancedVersioning.versionCode
+        versionName advancedVersioning.versionName
         multiDexEnabled true
         manifestPlaceholders = [crashlyticsApiKey: System.getenv("CRASHLYTICS_API_KEY") ?: "b246d46ecb3f6b64f3ce24c0c2055cc4fd101c93"]
     }
@@ -46,7 +57,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            versionNameSuffix ("#" + (buildNumber == 0 ? "local" : buildNumber).toString())
             applicationIdSuffix ".dev"
         }
     }
