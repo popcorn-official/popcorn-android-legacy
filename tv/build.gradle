@@ -39,7 +39,7 @@ repositories {
 
 advancedVersioning {
     codeOptions {
-        versionCodeType org.moallemi.gradle.internal.VersionCodeType.DATE
+        versionCodeType org.moallemi.gradle.internal.VersionCodeType.JALALI_DATE
     }
     nameOptions {
         versionMajor 0
