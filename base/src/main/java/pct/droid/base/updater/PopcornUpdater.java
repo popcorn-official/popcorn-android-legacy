@@ -61,21 +61,18 @@ public class PopcornUpdater extends Observable {
 
     private static PopcornUpdater sThis;
 
-    public static int NOTIFICATION_ID = 0xDEADBEEF;    
-    public final String STATUS_CHECKING = "checking_updates";
+    public static int NOTIFICATION_ID = 0x808C049;
     public final String STATUS_NO_UPDATE = "no_updates";
     public final String STATUS_GOT_UPDATE = "got_update";
-    public final String STATUS_HAVE_UPDATE = "have_update";
 
-    private final long MINUTES = 60 * 1000;
-    private final long HOURS = 60 * MINUTES;
-    private final long DAYS = 24 * HOURS;
-    private final long WAKEUP_INTERVAL = 15 * MINUTES;
-    private long UPDATE_INTERVAL = 3 * HOURS;
+    private final static long MINUTES = 60 * 1000;
+    private final static long HOURS = 60 * MINUTES;
+    private final static long DAYS = 24 * HOURS;
+    private final static long WAKEUP_INTERVAL = 15 * MINUTES;
+    private static long UPDATE_INTERVAL = 3 * HOURS;
 
     public static final String ANDROID_PACKAGE = "application/vnd.android.package-archive";
     private final String DATA_URLS[] = {"https://ci.popcorntime.io/android", "https://ci.popcorntime.cc/android", "https://ci.popcorntime.re/android",  "https://ci.get-popcorn.com/android"};
-    private Integer mCurrentUrl = 0;
 
     public static final String LAST_UPDATE_CHECK = "update_check";
     private static final String LAST_UPDATE_KEY = "last_update";
@@ -196,7 +193,7 @@ public class PopcornUpdater extends Observable {
             }
 
             Request request = new Request.Builder()
-                    .url(DATA_URLS[mCurrentUrl] + "/" + mVariantStr)
+                    .url(DATA_URLS[mCurrentUrl])
                     .build();
 
             mHttpClient.newCall(request).enqueue(mCallback);
@@ -219,7 +216,7 @@ public class PopcornUpdater extends Observable {
             if(mCurrentUrl < DATA_URLS.length - 1) {
                 mCurrentUrl++;
                 Request newRequest = new Request.Builder()
-                        .url(DATA_URLS[mCurrentUrl] + "/" + mVariantStr)
+                        .url(DATA_URLS[mCurrentUrl])
                         .build();
 
                 mHttpClient.newCall(newRequest).enqueue(mCallback);
