@@ -725,7 +725,7 @@ public interface PreferencesHandler {
                         @Override
                         public void onClick(final PrefItem item) {
                             Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(Constants.GIT_URL + "popcorntime/android/blob/development/NOTICE.md"));
+                            i.setData(Uri.parse(Constants.GIT_URL + "/blob/development/NOTICE.md"));
                             context.startActivity(i);
                         }
                     })
