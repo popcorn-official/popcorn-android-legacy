@@ -232,19 +232,19 @@ public class MainActivity extends PopcornBaseActivity implements NavigationDrawe
             return;
 
         mTabs.removeAllTabs();
-        mTabs.setTabGravity(TabLayout.GRAVITY_CENTER);
-        mTabs.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         if(containerFragment != null) {
             ViewPager viewPager = containerFragment.getViewPager();
             if(viewPager == null)
                 return;
 
+            mTabs.setupWithViewPager(viewPager);
+            mTabs.setTabGravity(TabLayout.GRAVITY_CENTER);
+            mTabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+            mTabs.setVisibility(View.VISIBLE);
+
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs));
             mTabs.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-
-            mTabs.setupWithViewPager(viewPager);
-            mTabs.setVisibility(View.VISIBLE);
 
             if(mTabs.getTabCount() > 0) {
                 mTabs.getTabAt(0).select();
