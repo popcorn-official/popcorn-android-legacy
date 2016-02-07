@@ -31,7 +31,6 @@ import android.net.Uri;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.NotificationCompat;
 
-import com.crashlytics.android.Crashlytics;
 import com.sjl.foreground.Foreground;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.okhttp.OkHttpClient;
@@ -40,7 +39,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-import io.fabric.sdk.android.Fabric;
 import pct.droid.base.beaming.BeamManager;
 import pct.droid.base.content.preferences.Prefs;
 import pct.droid.base.torrent.TorrentService;
@@ -68,9 +66,6 @@ public class PopcornApplication extends Application implements PopcornUpdater.Li
     public void onCreate() {
         super.onCreate();
         sThis = this;
-
-        if(!BuildConfig.GIT_BRANCH.equals("local"))
-            Fabric.with(this, new Crashlytics());
 
         sDefSystemLanguage = LocaleUtils.getCurrentAsString();
 

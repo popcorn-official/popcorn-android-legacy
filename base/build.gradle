@@ -16,7 +16,6 @@ android {
         buildConfigField 'Integer', 'BUILD_NUMBER', '' + buildNumber + ''
         buildConfigField 'String', 'GIT_BRANCH', '\"' + gitBranch + '\"'
         buildConfigField 'String', 'RELEASE_TYPE', '\"' + releaseType + '\"'
-        manifestPlaceholders = [crashlyticsApiKey: System.getenv("CRASHLYTICS_API_KEY") ?: "b246d46ecb3f6b64f3ce24c0c2055cc4fd101c93"]
         versionCode buildNumber
         multiDexEnabled true
     }
@@ -42,10 +41,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:multidex:1.0.1'
-
-    compile("com.crashlytics.sdk.android:crashlytics:${rootProject.ext.crashlyticsVersion}@aar") {
-        transitive = true;
-    }
 
     compile "com.android.support:support-v4:${rootProject.ext.appCompatVersion}"
     compile "com.android.support:palette-v7:${rootProject.ext.appCompatVersion}"
