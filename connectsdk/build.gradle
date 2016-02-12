@@ -53,7 +53,7 @@ build.dependsOn jacocoTestReport
 
 android {
     compileSdkVersion 22
-    buildToolsVersion '22.0.1'
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     packagingOptions {
         exclude 'LICENSE.txt'
