@@ -72,7 +72,7 @@ public class PopcornUpdater extends Observable {
     private static long UPDATE_INTERVAL = 3 * HOURS;
 
     public static final String ANDROID_PACKAGE = "application/vnd.android.package-archive";
-    private final String DATA_URLS[] = {"https://ci.popcorntime.io/android", "https://ci.popcorntime.cc/android", "https://ci.popcorntime.re/android",  "https://ci.get-popcorn.com/android"};
+    private final String DATA_URLS[] = BuildConfig.UPDATE_URLS;
     private Integer mCurrentUrl = 0;
 
     public static final String LAST_UPDATE_CHECK = "update_check";

@@ -9,6 +9,9 @@ android {
     def buildNumber = (System.getenv('BUILD_NUMBER') == null ? 0 : System.getenv('BUILD_NUMBER')) as int
     def gitBranch = (System.getenv('GIT_BRANCH') == null ? 'local' : System.getenv('GIT_BRANCH').replace('origin/', ''))
     def releaseType = (System.getenv('RELEASE_TYPE') == null ? 'NONE' : System.getenv('RELEASE_TYPE'))
+    def updateUrls = (System.getenv('UPDATE_URLS') == null ? '' : System.getenv('UPDATE_URLS'))
+    def movieUrls = (System.getenv('MOVIE_URLS') == null ? '' : System.getenv('MOVIE_URLS'))
+    def tvUrls = (System.getenv('TV_URLS') == null ? '' : System.getenv('TV_URLS'))
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdk
@@ -16,6 +19,9 @@ android {
         buildConfigField 'Integer', 'BUILD_NUMBER', '' + buildNumber + ''
         buildConfigField 'String', 'GIT_BRANCH', '\"' + gitBranch + '\"'
         buildConfigField 'String', 'RELEASE_TYPE', '\"' + releaseType + '\"'
+        buildConfigField 'String[]', 'UPDATE_URLS', '{' + updateUrls + '}'
+        buildConfigField 'String[]', 'MOVIE_URLS', '{' + movieUrls + '}'
+        buildConfigField 'String[]', 'TV_URLS', '{' + tvUrls + '}'
         versionCode buildNumber
         multiDexEnabled true
     }

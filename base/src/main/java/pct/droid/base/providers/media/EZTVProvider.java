@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import pct.droid.base.BuildConfig;
 import pct.droid.base.PopcornApplication;
 import pct.droid.base.R;
 import pct.droid.base.providers.media.models.Episode;
@@ -45,14 +46,7 @@ import pct.droid.base.providers.subs.SubsProvider;
 public class EZTVProvider extends MediaProvider {
 
     private static Integer CURRENT_API = 0;
-    private static final String[] API_URLS = {
-            "https://eztvapi.re/",
-            "https://api.popcorntime.io/",
-            "https://api.popcorntime.cc/",
-            "https://api.popcorntime.re/",
-            "https://api.get-popcorn.com/",
-            "http://tv.ytspt.re/",
-    };
+    private static final String[] API_URLS = BuildConfig.TV_URLS;
     private static final SubsProvider sSubsProvider = new OpenSubsProvider();
     private static final MetaProvider sMetaProvider = new TraktProvider();
     private static final MediaProvider sMediaProvider = new EZTVProvider();

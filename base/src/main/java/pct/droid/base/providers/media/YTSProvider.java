@@ -38,6 +38,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import pct.droid.base.BuildConfig;
 import pct.droid.base.PopcornApplication;
 import pct.droid.base.R;
 import pct.droid.base.providers.media.models.Genre;
@@ -51,10 +52,7 @@ public class YTSProvider extends MediaProvider {
 
     private static final YTSProvider sMediaProvider = new YTSProvider();
     private static Integer CURRENT_API = 0;
-    private static final String[][] API_URLS = {
-            {"https://yts.ag/api/v2/", "json"}
-    };
-    public static String CURRENT_URL = API_URLS[CURRENT_API][0];
+    private static final String[] API_URLS = BuildConfig.MOVIE_URLS;
 
     private static final SubsProvider sSubsProvider = new YSubsProvider();
     private static Filters sFilters = new Filters();
@@ -151,7 +149,7 @@ public class YTSProvider extends MediaProvider {
 
         Request.Builder requestBuilder = new Request.Builder();
         String query = buildQuery(params);
-        requestBuilder.url(CURRENT_URL + "list_movies." + API_URLS[CURRENT_API][1] + "?" + query);
+        requestBuilder.url(API_URLS[CURRENT_API] + "list_movies.json?" + query);
         requestBuilder.tag(MEDIA_CALL);
 
         return fetchList(currentList, requestBuilder, filters, callback);
@@ -173,13 +171,11 @@ public class YTSProvider extends MediaProvider {
                 if (CURRENT_API >= API_URLS.length - 1) {
                     callback.onFailure(e);
                 } else {
-                    if(url.contains(API_URLS[CURRENT_API][0])) {
-                        url = url.replace(API_URLS[CURRENT_API][0], API_URLS[CURRENT_API + 1][0]);
-                        url = url.replace(API_URLS[CURRENT_API][1], API_URLS[CURRENT_API + 1][1]);
+                    if(url.contains(API_URLS[CURRENT_API])) {
+                        url = url.replace(API_URLS[CURRENT_API], API_URLS[CURRENT_API + 1]);
                         CURRENT_API++;
                     } else {
-                        url = url.replace(API_URLS[CURRENT_API - 1][0], API_URLS[CURRENT_API][0]);
-                        url = url.replace(API_URLS[CURRENT_API - 1][1], API_URLS[CURRENT_API][1]);
+                        url = url.replace(API_URLS[CURRENT_API - 1], API_URLS[CURRENT_API]);
                     }
                     requestBuilder.url(url);
                     fetchList(currentList, requestBuilder, filters, callback);
