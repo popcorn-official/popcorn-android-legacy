@@ -15,6 +15,7 @@
  * along with Popcorn Time. If not, see <http://www.gnu.org/licenses/>.
  */
 
+apply plugin: 'android-sdk-manager'
 apply plugin: 'org.moallemi.advanced-build-version'
 apply plugin: 'com.android.application'
 apply plugin: 'hugo'
@@ -44,7 +45,7 @@ android {
         applicationId "pct.droid.tv"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdk
-        versionCode advancedVersioning.versionCode
+        versionCode (System.getenv('BUILD_NUMBER') == null ? advancedVersioning.versionCode : System.getenv('BUILD_NUMBER')) as int
         versionName advancedVersioning.versionName
         multiDexEnabled true
         manifestPlaceholders = [crashlyticsApiKey: System.getenv("CRASHLYTICS_API_KEY") ?: "b246d46ecb3f6b64f3ce24c0c2055cc4fd101c93"]

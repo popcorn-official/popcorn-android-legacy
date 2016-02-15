@@ -1,3 +1,21 @@
+/*
+ * This file is part of Popcorn Time.
+ *
+ * Popcorn Time is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Popcorn Time is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Popcorn Time. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.library'
 apply plugin: 'hugo'//for method logging (only in debug builds)
 apply plugin: 'com.github.ben-manes.versions'// to check for dependency updates
@@ -9,9 +27,9 @@ android {
     def buildNumber = (System.getenv('BUILD_NUMBER') == null ? 0 : System.getenv('BUILD_NUMBER')) as int
     def gitBranch = (System.getenv('GIT_BRANCH') == null ? 'local' : System.getenv('GIT_BRANCH').replace('origin/', ''))
     def releaseType = (System.getenv('RELEASE_TYPE') == null ? 'NONE' : System.getenv('RELEASE_TYPE'))
-    def updateUrls = (System.getenv('UPDATE_URLS') == null ? '' : System.getenv('UPDATE_URLS'))
-    def movieUrls = (System.getenv('MOVIE_URLS') == null ? '' : System.getenv('MOVIE_URLS'))
-    def tvUrls = (System.getenv('TV_URLS') == null ? '' : System.getenv('TV_URLS'))
+    def updateUrls = (System.getenv('UPDATE_URLS') == null ? '"http://popcorntime.sh/android-update.json"' : System.getenv('UPDATE_URLS'))
+    def movieUrls = (System.getenv('MOVIE_URLS') == null ? '"http://api-fetch.website/movies/api/v2/"' : System.getenv('MOVIE_URLS'))
+    def tvUrls = (System.getenv('TV_URLS') == null ? '"http://api-fetch.website/tv/"' : System.getenv('TV_URLS'))
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdk

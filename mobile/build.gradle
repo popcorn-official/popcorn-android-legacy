@@ -1,3 +1,4 @@
+apply plugin: 'android-sdk-manager'
 apply plugin: 'org.moallemi.advanced-build-version'
 apply plugin: 'com.android.application'
 apply plugin: 'hugo'//for method logging (only in debug builds)
@@ -23,7 +24,7 @@ android {
         applicationId "pct.droid"
         minSdkVersion rootProject.ext.minSdk
         targetSdkVersion rootProject.ext.targetSdk
-        versionCode advancedVersioning.versionCode
+        versionCode (System.getenv('BUILD_NUMBER') == null ? advancedVersioning.versionCode : System.getenv('BUILD_NUMBER')) as int
         versionName advancedVersioning.versionName
         multiDexEnabled true
     }

@@ -38,12 +38,7 @@ allprojects {
     project.afterEvaluate {
         //only apply to projects that have the android plugin
         if (project.plugins.hasPlugin('com.android.application')) {
-
-            //add the android sdk manager plugin to andriod projects
-            apply plugin: 'android-sdk-manager'
-
-            //global android settings
-
+            //global android setting
             project.android {
                 packagingOptions {
                     exclude 'META-INF/beans.xml'
@@ -65,9 +60,6 @@ allprojects {
                     javaMaxHeapSize "2048M"
                 }
             }
-        } else if (project.plugins.hasPlugin('com.android.library')) {
-            //add the android sdk manager plugin to andriod projects
-            apply plugin: 'android-sdk-manager'
         }
     }
 }
