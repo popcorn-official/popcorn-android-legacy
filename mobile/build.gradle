@@ -15,6 +15,9 @@ advancedVersioning {
     }
 }
 
+println advancedVersioning.versionCode
+println advancedVersioning.versionName
+
 android {
     compileSdkVersion rootProject.ext.compileSdk
     buildToolsVersion rootProject.ext.buildToolsVersion
