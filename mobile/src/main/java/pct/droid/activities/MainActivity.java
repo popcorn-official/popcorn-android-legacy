@@ -218,7 +218,6 @@ public class MainActivity extends PopcornBaseActivity implements NavigationDrawe
 
         if(mTabs.getTabCount() > 0)
             mTabs.getTabAt(0).select();
-        mTabs.removeAllTabs();
 
         fragmentManager.beginTransaction().replace(R.id.container, mCurrentFragment, tag).commit();
 
@@ -230,8 +229,6 @@ public class MainActivity extends PopcornBaseActivity implements NavigationDrawe
     public void updateTabs(MediaContainerFragment containerFragment, final int position) {
         if(mTabs == null)
             return;
-
-        mTabs.removeAllTabs();
 
         if(containerFragment != null) {
             ViewPager viewPager = containerFragment.getViewPager();
