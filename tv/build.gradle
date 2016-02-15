@@ -40,13 +40,13 @@ advancedVersioning {
 android {
     compileSdkVersion rootProject.ext.compileSdk
     buildToolsVersion rootProject.ext.buildToolsVersion
-    def buildNumber = (System.getenv("BUILD_NUMBER") == null ? 0 : System.getenv("BUILD_NUMBER")) as int
+    def buildNumber = (System.getenv("BUILD_NUMBER") == null ? advancedVersioning.versionCode : System.getenv("BUILD_NUMBER")) as int
 
     defaultConfig {
         applicationId "pct.droid.tv"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdk
-        versionCode (buildNumber == 0 ? advancedVersioning.versionCode : buildNumber)
+        versionCode buildNumber
         versionName advancedVersioning.versionName
         multiDexEnabled true
         manifestPlaceholders = [crashlyticsApiKey: System.getenv("CRASHLYTICS_API_KEY") ?: "b246d46ecb3f6b64f3ce24c0c2055cc4fd101c93"]
