@@ -17,14 +17,19 @@
 
 package pct.droid.activities;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -73,6 +78,7 @@ import timber.log.Timber;
  */
 public class MainActivity extends PopcornBaseActivity implements NavigationDrawerFragment.Callbacks {
 
+    private static final int PERMISSIONS_REQUEST = 1232;
     private Fragment mCurrentFragment;
 
     @Bind(R.id.toolbar)
@@ -95,6 +101,11 @@ public class MainActivity extends PopcornBaseActivity implements NavigationDrawe
 
         if (!PrefUtils.contains(this, TermsActivity.TERMS_ACCEPTED)) {
             startActivity(new Intent(this, TermsActivity.class));
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_SETTINGS, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST);
+            return;
         }
 
         String action = getIntent().getAction();
@@ -341,5 +352,16 @@ public class MainActivity extends PopcornBaseActivity implements NavigationDrawe
         });
 
         builder.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST: {
+                if (grantResults.length < 2 || grantResults[0] == PackageManager.PERMISSION_DENIED || grantResults[1] == PackageManager.PERMISSION_DENIED) {
+                    finish();
+                }
+            }
+        }
     }
 }
