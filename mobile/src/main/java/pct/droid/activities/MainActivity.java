@@ -78,7 +78,7 @@ import timber.log.Timber;
  */
 public class MainActivity extends PopcornBaseActivity implements NavigationDrawerFragment.Callbacks {
 
-    private static final int PERMISSIONS_REQUEST = 1232;
+    private static final int PERMISSIONS_REQUEST = 123;
     private Fragment mCurrentFragment;
 
     @Bind(R.id.toolbar)
@@ -103,9 +103,8 @@ public class MainActivity extends PopcornBaseActivity implements NavigationDrawe
             startActivity(new Intent(this, TermsActivity.class));
         }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_SETTINGS, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST);
-            return;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE }, PERMISSIONS_REQUEST);
         }
 
         String action = getIntent().getAction();
@@ -156,7 +155,7 @@ public class MainActivity extends PopcornBaseActivity implements NavigationDrawe
 
         mNavigationDrawerFragment.initItems();
 
-        if(BeamServerService.getServer() != null)
+        if (BeamServerService.getServer() != null)
             BeamServerService.getServer().stop();
         BeamPlayerNotificationService.cancelNotification();
     }
@@ -358,7 +357,7 @@ public class MainActivity extends PopcornBaseActivity implements NavigationDrawe
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST: {
-                if (grantResults.length < 2 || grantResults[0] == PackageManager.PERMISSION_DENIED || grantResults[1] == PackageManager.PERMISSION_DENIED) {
+                if (grantResults.length < 1 || grantResults[0] == PackageManager.PERMISSION_DENIED) {
                     finish();
                 }
             }
