@@ -33,7 +33,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -321,7 +320,7 @@ public class VideoPlayerFragment extends BaseVideoPlayerFragment implements View
                         doVolumeTouch(y_changed);
                     }
                     if ((int) mTouchX < (screen.widthPixels / 2)) {
-                        if(Settings.System.canWrite(getContext())) {
+                        if(Build.VERSION.SDK_INT >= 23 && Settings.System.canWrite(getContext())) {
                             doVolumeTouch(y_changed);
                         } else {
                             doBrightnessTouch(y_changed);
@@ -422,9 +421,14 @@ public class VideoPlayerFragment extends BaseVideoPlayerFragment implements View
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO &&
                     Settings.System.getInt(getActivity().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
-                Settings.System.putInt(getActivity().getContentResolver(),
-                        Settings.System.SCREEN_BRIGHTNESS_MODE,
-                        Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+
+                // Only do this for Android >= 23
+                if(Build.VERSION.SDK_INT >= 23 && Settings.System.canWrite(getContext())) {
+                    Settings.System.putInt(getActivity().getContentResolver(),
+                            Settings.System.SCREEN_BRIGHTNESS_MODE,
+                            Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                }
+
                 mRestoreAutoBrightness = android.provider.Settings.System.getInt(getActivity().getContentResolver(),
                         android.provider.Settings.System.SCREEN_BRIGHTNESS) / 255.0f;
             } else {
