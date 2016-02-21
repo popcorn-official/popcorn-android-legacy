@@ -284,6 +284,7 @@ public class VideoPlayerFragment extends BaseVideoPlayerFragment implements View
     }
 
 
+    @TargetApi(Build.VERSION_CODES.M)
     public boolean onTouchEvent(MotionEvent event) {
         DisplayMetrics screen = new DisplayMetrics();
         getAppCompatActivity().getWindowManager().getDefaultDisplay().getMetrics(screen);
@@ -320,7 +321,7 @@ public class VideoPlayerFragment extends BaseVideoPlayerFragment implements View
                         doVolumeTouch(y_changed);
                     }
                     if ((int) mTouchX < (screen.widthPixels / 2)) {
-                        if(Build.VERSION.SDK_INT >= 23 && Settings.System.canWrite(getContext())) {
+                        if(VersionUtils.isMarshmallow() && Settings.System.canWrite(getContext())) {
                             doVolumeTouch(y_changed);
                         } else {
                             doBrightnessTouch(y_changed);
@@ -416,14 +417,15 @@ public class VideoPlayerFragment extends BaseVideoPlayerFragment implements View
         showPlayerInfo(getString(R.string.volume) + '\u00A0' + Integer.toString(vol));
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void initBrightnessTouch() {
         float brightnesstemp = 0.6f;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO &&
                     Settings.System.getInt(getActivity().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
 
-                // Only do this for Android >= 23
-                if(Build.VERSION.SDK_INT >= 23 && Settings.System.canWrite(getContext())) {
+                // Only do this for Android >= API level 23
+                if(VersionUtils.isMarshmallow() && Settings.System.canWrite(getContext())) {
                     Settings.System.putInt(getActivity().getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS_MODE,
                             Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
